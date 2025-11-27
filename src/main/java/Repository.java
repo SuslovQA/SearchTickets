@@ -15,12 +15,12 @@ public class Repository {
         return null;
     }
 
-    public void save(Ticket item) {
+    public void save(Ticket ticket) {
         Ticket[] tmp = new Ticket[tickets.length + 1];
         for (int i = 0; i < tickets.length + 1; i++) {
             tmp[i] = tickets[i];
         }
-        tmp[tmp.length - 1] = item;
+        tmp[tmp.length - 1] = ticket;
         tickets = tmp;
     }
 
