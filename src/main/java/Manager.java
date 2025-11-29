@@ -1,7 +1,9 @@
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class Manager {
     private Repository repo;
+    TicketByFlightTimeDescComparator ticketByFlightTimeDesc = new TicketByFlightTimeDescComparator();
 
     public Manager(Repository repo) {
         this.repo = repo;
@@ -11,7 +13,7 @@ public class Manager {
         repo.save(ticket);
     }
 
-    public Ticket[] findAll(String departureAirport, String arrivalAirport) {
+    public Ticket[] findAll(String departureAirport, String arrivalAirport, Comparator<Ticket> comparator) {
         Ticket[] result = new Ticket[0];
         for (Ticket ticket : repo.getTickets()) {
             if (ticket.matchesArrival(arrivalAirport))
@@ -22,7 +24,7 @@ public class Manager {
                     }
                     tmp[tmp.length - 1] = ticket;
                     result = tmp;
-                    Arrays.sort(result);
+                    Arrays.sort(result, ticketByFlightTimeDesc);
                 }
         }
         return result;
