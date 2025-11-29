@@ -1,5 +1,7 @@
+import java.util.Arrays;
+
 public class Manager {
-    public Repository repo;
+    private Repository repo;
 
     public Manager(Repository repo) {
         this.repo = repo;
@@ -9,14 +11,20 @@ public class Manager {
         repo.save(ticket);
     }
 
-    public Ticket[] findAll() {
-        Ticket[] all = repo.getTickets();
-        Ticket[] tmp = new Ticket[all.length];
-        for (int i = 0; i < tmp.length; i++) {
-            tmp[i] = all[i];
-
+    public Ticket[] findAll(String departureAirport, String arrivalAirport) {
+        Ticket[] result = new Ticket[0];
+        for (Ticket ticket : repo.getTickets()) {
+            if (ticket.matchesArrival(arrivalAirport))
+                if (ticket.matchesDeparture(departureAirport)) {
+                    Ticket[] tmp = new Ticket[result.length + 1];
+                    for (int i = 0; i < result.length; i++) {
+                        tmp[i] = result[i];
+                    }
+                    tmp[tmp.length - 1] = ticket;
+                    result = tmp;
+                    Arrays.sort(result);
+                }
         }
-        return tmp;
+        return result;
     }
-
 }
