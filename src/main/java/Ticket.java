@@ -53,12 +53,21 @@ public class Ticket implements Comparable<Ticket> {
         this.flightTime = flightTime;
     }
 
-    public boolean matchesArrival(String search) {
-        return getArrivalAirport().contains(search);
-    }
+//    public boolean matchesArrival(String search) {
+//        return getArrivalAirport().contains(search);
+//    }
+//
+//    public boolean matchesDeparture(String search) {
+//        return getDepartureAirport().contains(search);
+//    }
 
-    public boolean matchesDeparture(String search) {
-        return getDepartureAirport().contains(search);
+    public boolean matches(Ticket ticket, String departureAirport, String arrivalAirport) {
+        if (ticket.getDepartureAirport().equals(departureAirport)) {
+            if (ticket.getArrivalAirport().equals(arrivalAirport)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
